@@ -11,11 +11,12 @@ angular.module('confApp')
 	// the id/element dom element that will hold remote videos
 	remoteVideosEl: 'remotesVideos',
 	// immediately ask for camera access
-	autoRequestMedia: true
+	autoRequestMedia: true,
+	media: {audio:false,video:true}
 	});
 	webrtc.on('readyToCall', function () {
 	  // you can name it anything
-	  webrtc.joinRoom('your awesome room name');
+	  webrtc.joinRoom('conf');
 	 
 	});
 	$scope.$watch('users', function(users) {
@@ -28,9 +29,8 @@ angular.module('confApp')
 		  	 	user: $scope.user, 
 		  	 	data:'set_user'
 		  	 });
-			console.log('adding now',$scope.users, userExists(peer.id) );
 			if ($('#' + peer.id).length == 0 && userExists(peer.id) == true) {
-				$('#' + peer.id + '_video_incoming').after('<label class="vidlbl">' + userIdToName(peer.id) + '</label>');
+				$('#' + peer.id + '_video_incoming').after('<label class="vidlbl" id="' + peer.id + '">' + userIdToName(peer.id) + '</label>');
 			}
 
 	});
@@ -65,11 +65,12 @@ angular.module('confApp')
 
 	};
 	webrtc.on('videoRemoved', function (video) {
-			 $scope.users.forEach(function (user_, i) {
-				 if (user_.id == $(video).attr('id').substring(0, 20)) {
-				 	$scope.users.splice(i, 1);
-				 }	
-			 });
+		$('#' + $(video).attr('id').substring(0, 20)).remove();
+		$scope.users.forEach(function (user_, i) {
+			if (user_.id == $(video).attr('id').substring(0, 20)) {
+				$scope.users.splice(i, 1);
+			}	
+		});
 	});
 
 	webrtc.on('chatdata', function (payload) {
