@@ -7,12 +7,13 @@
   <img src="http://static.squarespace.com/static/52142586e4b0c09536a144ad/t/52142b91e4b0ca84969c54ab/1381986279816/?format=100w">
 </div>
 
-<div class="jumbotron">
-  <h1>Panasonic WebConference</h1>
-  <p><a class="btn btn-lg btn-success" ng-click="name(confname)">Join the Conference!</a></p>
-</div>
+<div class="joinbox">
+  <h1 style="font-size:56px;margin-top:10px">Panasonic WebConference</h1>
+  <div class="input-group" style="width:75%;margin:0 auto">
+        <input placeholder="Enter your name" type="text" class="form-control" ng-model="confname" ng-keypress="join($event)">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button"  ng-click="name(confname)">Join the Conference!</button>
+        </span>
+      </div>
 
-<div class="row marketing">
-  <h4>Custom Name</h4>
-  <input type="text" class="form-control"  ng-model="confname" placeholder="Enter an optional name for your conference.">
 </div>
