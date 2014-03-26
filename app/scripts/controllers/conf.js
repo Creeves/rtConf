@@ -35,6 +35,12 @@ angular.module('confApp')
 
 	});
 
+	$scope.startScreen = function() {
+		webrtc.shareScreen(function() {
+			alert('sharing started');
+		});
+	};
+
 	var userExists = function(id) {
 		var found = false;
 		$scope.users.forEach(function(u) {
